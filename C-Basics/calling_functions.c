@@ -7,6 +7,7 @@ int main(){
     printf("I am home\n");
     argentina();
     printf("Back home\n");
+    return 0;
 }
 void argentina(){
     printf("I am in Argentina\n");
