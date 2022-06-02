@@ -1,19 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*Structure declaration*/
-
 struct node{
     int data;
-    struct node* link;
+    struct node* left;
+    struct node* right;
 };
 
+//declaring root to NULL initially
 struct node* root = NULL;
 
 /*Length variable declaration (global)*/
 int len;
 
-/*Prototype declaration*/
+//Prototype declaration
 void append(void);
 void addatbegin(void);
 void addatafter(void);
@@ -22,13 +22,14 @@ void display(void);
 void delete(void);
 void quit(void);
 
-void main(){
+//main() function
+int main(){
 
     while(1)
     {
         int ch;
 
-        printf("\nSingle Link list operations\n");
+        printf("\nDouble Linked list operations\n");
         printf("1. Append\n");
         printf("2. Add at begin\n");
         printf("3. Add at after\n");
@@ -38,10 +39,9 @@ void main(){
         printf("7. Quit\n");
 
         printf("\nEnter your choice: ");
-        scanf("%d", &ch);
+        scanf("%d",&ch);
 
         switch(ch){
-
             case 1: append();
                     break;
             case 2: addatbegin();
@@ -59,67 +59,71 @@ void main(){
                     break;
             default: printf("Invalid input\n");
         }
-
     }
+    return 0;
 }
-void append(){
 
+//append() function definition
+void append(){
     struct node* temp;
     temp = (struct node*)malloc(sizeof(struct node));
-
-    printf("Enter data: ");
+    printf("Enter node data: ");
     scanf("%d", &temp->data);
-    temp->link = NULL;
+    temp->left = NULL;
+    temp->right = NULL;
 
     if(root == NULL){
         root = temp;
-    }
-    else{
+    }else{
         struct node* p;
         p = root;
-        while( p->link != NULL){
-            p = p->link;
+        while(p->right != NULL){
+            p = p->right;
         }
-        p->link = temp;
+        p->right = temp;
+        temp->left = p;
     }
 }
-int length(){
-    int count = 0;
+
+//atatbegin() function definition
+void addatbegin(){
     struct node* temp;
-    temp = root;
+    temp = (struct node*)malloc(sizeof(struct node));
+    printf("Enter node data: ");
+    scanf("%d", &temp->data);
+    temp->left = NULL;
+    temp->right = NULL;
+
+    if(root == NULL){
+        root = temp;
+    }else{
+        temp->right = root;
+        root->left = temp;
+        root = temp;
+    }
+}
+
+//length() function definition
+int length(){
+    struct node* temp = root;
+    int count = 0;
 
     while(temp != NULL){
-        count ++ ;
-        temp = temp->link;
+        count++;
+        temp = temp->right;
     }
     return count;
 }
+
+//display() function definition
 void display(){
-
-    struct node* temp;
-    temp = root;
-
+    struct node* temp = root;
     if(temp == NULL){
-        printf("List is Empty\n");
-    }
-    else{
-
+        printf("It is an empty list\n");
+    }else{
         while(temp != NULL){
-            printf("%d-->",temp->data);
-            temp = temp->link;
+            printf("%d -> ",temp->data);
+            temp = temp->right;
         }
-        printf("\n\n");
     }
-}
-void addatbegin(void){
-
-}
-void addatafter(void){
-
-}
-void delete(void){
-
-}
-void quit(void){
-
 }
