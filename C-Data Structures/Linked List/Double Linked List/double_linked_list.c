@@ -10,13 +10,13 @@ struct node{
 //declaring root to NULL initially
 struct node* root = NULL;
 
-/*Length variable declaration (global)*/
+//Length variable declaration (global)
 int len;
 
 //Prototype declaration
 void append(void);
-void addatbegin(void);
-void addatafter(void);
+void addatBegin(void);
+void addAfter(void);
 int length(void);
 void display(void);
 void delete(void);
@@ -29,7 +29,7 @@ int main(){
     {
         int ch;
 
-        printf("\nDouble Linked list operations\n");
+        printf("\n\nDouble Linked list operations\n");
         printf("1. Append\n");
         printf("2. Add at begin\n");
         printf("3. Add at after\n");
@@ -38,15 +38,15 @@ int main(){
         printf("6. Delete\n");
         printf("7. Quit\n");
 
-        printf("\nEnter your choice: ");
+        printf("Enter your choice: ");
         scanf("%d",&ch);
 
         switch(ch){
             case 1: append();
                     break;
-            case 2: addatbegin();
+            case 2: addatBegin();
                     break;
-            case 3: addatafter();
+            case 3: addAfter();
                     break;
             case 4: len = length();
                     printf("\nLength of SLL is %d\n", len);
@@ -66,6 +66,7 @@ int main(){
 //append() function definition
 void append(){
     struct node* temp;
+
     temp = (struct node*)malloc(sizeof(struct node));
     printf("Enter node data: ");
     scanf("%d", &temp->data);
@@ -85,9 +86,10 @@ void append(){
     }
 }
 
-//atatbegin() function definition
-void addatbegin(){
+//addatbegin() function definition
+void addatBegin(){
     struct node* temp;
+
     temp = (struct node*)malloc(sizeof(struct node));
     printf("Enter node data: ");
     scanf("%d", &temp->data);
@@ -100,6 +102,39 @@ void addatbegin(){
         temp->right = root;
         root->left = temp;
         root = temp;
+    }
+}
+
+//addafter() function definition
+void addAfter(){
+    struct node *temp, *p;
+    int loc, s, i=1;
+
+    printf("Enter location: ");
+    scanf("%d",&loc);
+
+    s = length();
+
+    if(loc>s){
+        printf("Invalid input, there are %d nodes", len);
+    }else{
+        temp = (struct node*)malloc(sizeof(struct node));
+
+        printf("Enter node data: ");
+        scanf("%d",&temp->data);
+        temp->left = NULL;
+        temp->right = NULL;
+
+        p = root;
+        while(i<loc){
+            p = p->right;
+            i++;
+        }
+        temp->right = p->right;
+        p->right->left = temp;
+
+        temp->left = p;
+        p->right = temp;
     }
 }
 
@@ -121,9 +156,18 @@ void display(){
     if(temp == NULL){
         printf("It is an empty list\n");
     }else{
+        printf("\nThe list is: ");
         while(temp != NULL){
             printf("%d -> ",temp->data);
             temp = temp->right;
         }
     }
+}
+
+void delete(){
+
+}
+
+void quit(){
+
 }
