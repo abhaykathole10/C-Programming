@@ -63,23 +63,27 @@ void main(){
     }
 }
 void append(){
-
+    //Creating a temporary pointer of struct node type
     struct node* temp;
+    //Assigning memory address to the temp pointer, type casting to struct node type
     temp = (struct node*)malloc(sizeof(struct node));
-
+    //Taking node data from the user
     printf("Enter data: ");
     scanf("%d", &temp->data);
+    //Pointing the link to NULL for now
     temp->link = NULL;
-
+    //Checking if root is NULL i.e no list exist, temp will be the first node
     if(root == NULL){
         root = temp;
     }
+    //If already nodes are present then first traverse to the last node using pointer p
     else{
         struct node* p;
         p = root;
         while( p->link != NULL){
             p = p->link;
         }
+        //Storing address of temp to the link of p hence, temp is connected to the list
         p->link = temp;
     }
 }
@@ -103,7 +107,6 @@ void display(){
         printf("List is Empty\n");
     }
     else{
-
         while(temp != NULL){
             printf("%d-->",temp->data);
             temp = temp->link;
@@ -112,6 +115,20 @@ void display(){
     }
 }
 void addatbegin(void){
+    struct node* temp;
+
+    temp = (struct node*)malloc(sizeof(struct node));
+    printf("Enter node data: ");
+    scanf("%d", &temp->data);
+
+    temp->link = NULL;
+
+    if(root == NULL){
+        root = temp;
+    }else{
+         temp->link = root;
+         root = temp;
+    }
 
 }
 void addatafter(void){

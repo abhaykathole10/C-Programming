@@ -49,7 +49,7 @@ int main(){
             case 3: addAfter();
                     break;
             case 4: len = length();
-                    printf("\nLength of SLL is %d\n", len);
+                    printf("\nLength of DLL is %d\n", len);
                     break;
             case 5: display();
                     break;
