@@ -132,7 +132,27 @@ void addatbegin(void){
 
 }
 void addatafter(void){
+    struct node *temp,*p;
+    int loc,s,i;
+    s = length();
+    printf("Enter location: ");
+    scanf("%d", &loc);
 
+    if(loc > s){
+        printf("Not possible, there are %d nodes", s);
+    }else{
+        temp = (struct node*)malloc(sizeof(struct node));
+        printf("Enter node data: ");
+        scanf("%d", &temp->data);
+        temp->link = NULL;
+        p = root;
+        while(i != loc){
+            p = p->link;
+            i++;
+        }
+        temp->link = p->link;
+        p->link = temp;
+    }
 }
 void delete(void){
 
