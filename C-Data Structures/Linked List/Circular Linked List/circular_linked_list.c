@@ -140,7 +140,7 @@ void display(){
         printf("%d\n", temp->data);
     }
 }
-void delete(){
+void delete(){,
    int key;
    printf("Enter key: ");
    scanf("%d",&key);
