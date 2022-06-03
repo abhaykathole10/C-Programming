@@ -29,14 +29,8 @@ int main(){
     {
         int ch;
 
-        printf("\n\nDouble Linked list operations\n");
-        printf("1. Append\n");
-        printf("2. Add at begin\n");
-        printf("3. Add at after\n");
-        printf("4. Length\n");
-        printf("5. Display\n");
-        printf("6. Delete\n");
-        printf("7. Quit\n");
+        printf("\nDouble Linked list operations\n");
+        printf("1.Append\n2.Add at begin\n3.Add at after\n4.Length\n5.Display\n6.Delete\n7.Quit\n");
 
         printf("Enter your choice: ");
         scanf("%d",&ch);
@@ -55,7 +49,8 @@ int main(){
                     break;
             case 6: delete();
                     break;
-            case 7: quit();
+            case 7: printf("Thank you");
+                    exit(0);
                     break;
             default: printf("Invalid input\n");
         }
@@ -165,9 +160,37 @@ void display(){
 }
 
 void delete(){
+    struct node* temp;
+    temp = root;
+    int loc, i=1;
+    int s = length();
 
-}
+    printf("Enter location: ");
+    scanf("%d", &loc);
 
-void quit(){
+    //If the location entered is out of scope
+    if(loc > s){
+        printf("Invalid input, there are only %d nodes", s);
+    }
+    //If the very first node is to be deleted
+    else if(loc == 1){
+        temp = root;
+        root = temp->right;
+        temp->right = NULL;
+        free(temp);
+    }
+    else{
+        struct node *p, *q;
+        p = root;
+        while(i != loc-1){
+            p = p->right;
+            i++;
+        }
+        q = p->right;
 
+        p->right = q->right;
+        q->right = NULL;
+
+        free(q);
+    }
 }

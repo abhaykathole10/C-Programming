@@ -23,19 +23,11 @@ void delete(void);
 void quit(void);
 
 void main(){
-
-    while(1)
+    int ch;
+    while(ch != 7)
     {
-        int ch;
-
         printf("\nSingle Link list operations\n");
-        printf("1. Append\n");
-        printf("2. Add at begin\n");
-        printf("3. Add at after\n");
-        printf("4. Length\n");
-        printf("5. Display\n");
-        printf("6. Delete\n");
-        printf("7. Quit\n");
+        printf("1.Append\n2.Add at begin\n3.Add at after\n4.Length\n5.Display\n6.Delete\n7.Quit\n");
 
         printf("\nEnter your choice: ");
         scanf("%d", &ch);
@@ -55,7 +47,8 @@ void main(){
                     break;
             case 6: delete();
                     break;
-            case 7: quit();
+            case 7: printf("Thank You");
+                    exit(0);
                     break;
             default: printf("Invalid input\n");
         }
@@ -107,6 +100,7 @@ void display(){
         printf("List is Empty\n");
     }
     else{
+        printf("\nThe list is: ");
         while(temp != NULL){
             printf("%d-->",temp->data);
             temp = temp->link;
@@ -129,17 +123,16 @@ void addatbegin(void){
          temp->link = root;
          root = temp;
     }
-
 }
 void addatafter(void){
     struct node *temp,*p;
-    int loc,s,i;
+    int loc,s,i=1;
     s = length();
     printf("Enter location: ");
     scanf("%d", &loc);
 
     if(loc > s){
-        printf("Not possible, there are %d nodes", s);
+        printf("Not possible, there are only %d nodes", s);
     }else{
         temp = (struct node*)malloc(sizeof(struct node));
         printf("Enter node data: ");
@@ -155,8 +148,41 @@ void addatafter(void){
     }
 }
 void delete(void){
+    int loc,i=1;
+    int len = length();
 
-}
-void quit(void){
+    struct node *temp;
 
+    //Getting the location of the node that is to be deleted
+    printf("Enter location of node to delete: ");
+    scanf("%d", &loc);
+
+    //Checking if the location entered is out of scope
+    if(loc > len){
+        printf("Impossible, there are only %d nodes", len);
+    }
+    //If the location entered is the for the first node
+    else if(loc == 1){
+        temp = root;
+        root = temp->link;
+        temp->link = NULL;
+        free(temp);
+    }
+    //If the location entered is for the middle node or the last node
+    else{
+        struct node *p, *q;
+        p = root;
+        int i=1;
+
+        while(i != loc-1){
+            p = p->link;
+            i++;
+        }
+        q = p->link;
+        p->link = q->link;
+        q->link = NULL;
+
+        free(q);
+    }
 }
+
