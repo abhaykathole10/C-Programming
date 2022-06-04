@@ -30,9 +30,7 @@ int main(){
             default: printf("Invalid input\n");
         }
     }
-
 }
-
 void insert(){
     if(rear == CAPACITY){
         printf("\nQueue is Full\n");
@@ -57,7 +55,6 @@ void delete(){
         }
         rear--;
     }
-
 }
 void display(){
     if(front==rear)
@@ -73,3 +70,5 @@ void display(){
         printf("(rear)\n");
     }
 }
+//front always stays at 0th index, it doesn't move after deletion
+//the elements get shifted by one position till the rear
