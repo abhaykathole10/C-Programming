@@ -15,7 +15,7 @@ int stack[CAPACITY], top=-1;
 int main(){
     int ch;
     while(ch != 5){
-        printf("\nStack Operations using Array\n");
+        printf("\nStack using Array Operations using Array\n");
         printf("1.push\n2.pop\n3.display\n4.peek\n5.Quit\n");
         printf("Enter your choice: ");
         scanf("%d", &ch);
