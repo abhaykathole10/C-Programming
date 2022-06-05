@@ -7,9 +7,13 @@ struct node{
     struct node* right;
 };
 
+struct node* create(void);
+void inorder(struct node*);
+
 int main(){
     struct node* root = NULL;
     root = create();
+    inorder(root);
 }
 
 //Create() function will return the pointer of type struct node
@@ -37,4 +41,14 @@ struct node* create(){
 
     //We need to return the address of the new node
     return temp;
+}
+void inorder(struct node* root){
+    if(root == NULL){
+        printf("Binary Tree is Empty\n");
+    }
+    else{
+        inorder(root->left);
+        printf("%d ",root->data);
+        inorder(root->right);
+    }
 }
