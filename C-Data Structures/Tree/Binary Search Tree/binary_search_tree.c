@@ -30,8 +30,7 @@ int main(){
                     temp = (struct node*)malloc(sizeof(struct node));
                     printf("Enter data: ");
                     scanf("%d",&temp->data);
-
-                    insertion(temp->data);
+                    //insertion();
                     break;
             case 2: deletion();
                     break;
@@ -53,7 +52,7 @@ int main(){
 void insertion(struct node temp){
 
     if(root == NULL){
-        root = temp;
+        //root = temp;
     }
     else{
 
