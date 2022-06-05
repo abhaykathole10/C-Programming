@@ -50,6 +50,7 @@ struct node* create(){
     //We need to return the address of the new node
     return temp;
 }
+//INORDER LEFT->ROOT->RIGHT
 void inorder(struct node* root){
     if(root == NULL){
         return;
@@ -60,6 +61,7 @@ void inorder(struct node* root){
         inorder(root->right);
     }
 }
+//PREORDER ROOT->LEFT->RIGHT
 void preorder(struct node* root){
     if(root == NULL){
         return;
@@ -70,6 +72,7 @@ void preorder(struct node* root){
         preorder(root->right);
     }
 }
+//POSTORDER LEFT->RIGHT->ROOT
 void postorder(struct node* root){
     if(root == NULL){
         return;
