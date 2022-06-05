@@ -11,6 +11,8 @@ struct node{
 //PROTOTYPE DECLARATION
 struct node* create(int);
 struct node* insert(struct node*, int);
+struct node* delete(struct node*, int);
+struct node* inorderSucc(struct node*);
 bool search(struct node*, int);
 
 void inorder(struct node*);
@@ -34,6 +36,15 @@ int main(){
     preorder(root);
     printf("\nPostorder Traversal: ");
     postorder(root);
+
+    printf("\n\nInorder Traversal before deletion: ");
+    inorder(root);
+    int del;
+    printf("\nEnter the element to be deleted: ");
+    scanf("%d",&del);
+    delete(root, del);
+    printf("Inorder Traversal after deletion: ");
+    inorder(root);
 
     int ele;
     printf("\nEnter the element to be searched: ");
@@ -88,6 +99,43 @@ bool search(struct node* rootPtr, int key){
     else return search(rootPtr->right,key);
 }
 
+//DELETE FUNCTION
+struct node* delete(struct node* root, int key){
+    //If the key is less than root->data
+    if(key < root->data){
+        root->left = delete(root->left, key);
+    }
+    else if(key > root->data){
+        root->right = delete(root->right, key);
+    }
+    else{
+        //When One Child(1.RIGHT or 2.LEFT) is present
+        if(root->left == NULL){
+            struct node* temp = root->right;
+            free(root);
+            return temp;
+        }
+        else if(root->right == NULL){
+            struct node* temp = root->left;
+            free(root);
+            return temp;
+        }
+        //When two childs are present
+        struct node* temp = inorderSucc(root->right);
+        root->data = temp->data;
+        root->right = delete(root->right, temp->data);
+    }
+}
+//FINDING INORDER SUCCESSOR
+struct node* inorderSucc(struct node* root){
+    struct node* curr = root;
+    while(curr && curr->left != NULL){
+        curr = curr->left;
+    }
+    return curr;
+}
+
+////////////////////////////////////////////////////////
 //INORDER LEFT->ROOT->RIGHT
 void inorder(struct node* root){
     if(root == NULL){
