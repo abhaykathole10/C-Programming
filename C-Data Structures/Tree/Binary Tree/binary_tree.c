@@ -9,11 +9,19 @@ struct node{
 
 struct node* create(void);
 void inorder(struct node*);
+void preorder(struct node*);
+void postorder(struct node*);
 
 int main(){
     struct node* root = NULL;
     root = create();
+
+    printf("\nInorder Traversal: ");
     inorder(root);
+    printf("\nPreorder Traversal: ");
+    preorder(root);
+    printf("\nPostorder Traversal: ");
+    postorder(root);
 }
 
 //Create() function will return the pointer of type struct node
@@ -44,11 +52,31 @@ struct node* create(){
 }
 void inorder(struct node* root){
     if(root == NULL){
-        printf("Binary Tree is Empty\n");
+        return;
     }
     else{
         inorder(root->left);
         printf("%d ",root->data);
         inorder(root->right);
+    }
+}
+void preorder(struct node* root){
+    if(root == NULL){
+        return;
+    }
+    else{
+        printf("%d ",root->data);
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
+void postorder(struct node* root){
+    if(root == NULL){
+        return;
+    }
+    else{
+        preorder(root->left);
+        preorder(root->right);
+        printf("%d ",root->data);
     }
 }
