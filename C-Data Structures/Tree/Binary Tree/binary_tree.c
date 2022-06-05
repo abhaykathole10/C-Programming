@@ -78,8 +78,8 @@ void postorder(struct node* root){
         return;
     }
     else{
-        preorder(root->left);
-        preorder(root->right);
+        postorder(root->left);
+        postorder(root->right);
         printf("%d ",root->data);
     }
 }
