@@ -12,7 +12,7 @@ struct node{
 struct node* create(int);
 struct node* insert(struct node*, int);
 struct node* delete(struct node*, int);
-struct node* inorderSucc(struct node*);
+struct node* findMin(struct node*);
 bool search(struct node*, int);
 
 void inorder(struct node*);
@@ -37,12 +37,12 @@ int main(){
     printf("\nPostorder Traversal: ");
     postorder(root);
 
-    printf("\n\nInorder Traversal before deletion: ");
+    printf("\n\nInorder Traversal before deletion(40): ");
     inorder(root);
-    int del;
-    printf("\nEnter the element to be deleted: ");
-    scanf("%d",&del);
-    delete(root, del);
+
+    root = delete(root,40);
+
+    printf("\n");
     printf("Inorder Traversal after deletion: ");
     inorder(root);
 
@@ -99,43 +99,46 @@ bool search(struct node* rootPtr, int key){
     else return search(rootPtr->right,key);
 }
 
-//DELETE FUNCTION
-struct node* delete(struct node* root, int key){
-    //If the key is less than root->data
-    if(key < root->data){
-        root->left = delete(root->left, key);
+struct node* findMin(struct node* root){
+    while(root->left != NULL){
+        root = root->left;
     }
-    else if(key > root->data){
-        root->right = delete(root->right, key);
-    }
-    else{
-        //When One Child(1.RIGHT or 2.LEFT) is present
-        if(root->left == NULL){
-            struct node* temp = root->right;
-            free(root);
-            return temp;
-        }
-        else if(root->right == NULL){
-            struct node* temp = root->left;
-            free(root);
-            return temp;
-        }
-        //When two childs are present
-        struct node* temp = inorderSucc(root->right);
-        root->data = temp->data;
-        root->right = delete(root->right, temp->data);
-    }
-}
-//FINDING INORDER SUCCESSOR
-struct node* inorderSucc(struct node* root){
-    struct node* curr = root;
-    while(curr && curr->left != NULL){
-        curr = curr->left;
-    }
-    return curr;
+    return root;
 }
 
-////////////////////////////////////////////////////////
+//DELETE FUNCTION
+struct node* delete(struct node* root, int key){
+    if(root == NULL) return root;
+    else if(key<root->data) root->left = delete(root->left, key);
+    else if(key>root->data) root->right = delete(root->right, key);
+    else{
+        //Case 1: No child
+        if(root->left == NULL && root->right == NULL){
+            free(root);
+            root = NULL;
+        }
+        //Case 2: Only one child node
+        else if(root->left == NULL){
+            struct node* temp = root;
+            root = root->right;
+            free(root);
+        }
+        else if(root->right == NULL){
+            struct node* temp = root;
+            root = root->left;
+            free(root);
+        }
+        //Case 3: Two children nodes
+        else{
+            struct node* temp = findMin(root->right);
+            root->data = temp->data;
+            root->right = delete(root->right,temp->data);
+        }
+    }
+    return root;
+}
+
+
 //INORDER LEFT->ROOT->RIGHT
 void inorder(struct node* root){
     if(root == NULL){
