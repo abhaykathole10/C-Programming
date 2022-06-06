@@ -82,7 +82,7 @@ struct node* insert(struct node* root, int item){
     return root;
 }
 
-//Create() functions creates a new node in heap and returns the address of the new node
+//CREATE() function creates a new node in heap and returns the address of the new node
 struct node* create(int data){
     struct node* newNode;
     newNode = (struct node*)malloc(sizeof(struct node));
@@ -99,6 +99,7 @@ bool search(struct node* rootPtr, int key){
     else return search(rootPtr->right,key);
 }
 
+//Minimum will always lie on left subtree
 struct node* findMin(struct node* root){
     while(root->left != NULL){
         root = root->left;
@@ -109,9 +110,11 @@ struct node* findMin(struct node* root){
 //DELETE FUNCTION
 struct node* delete(struct node* root, int key){
     if(root == NULL) return root;
+    //Searching where the key lies
     else if(key<root->data) root->left = delete(root->left, key);
     else if(key>root->data) root->right = delete(root->right, key);
     else{
+        //After finding the key
         //Case 1: No child
         if(root->left == NULL && root->right == NULL){
             free(root);
@@ -121,12 +124,12 @@ struct node* delete(struct node* root, int key){
         else if(root->left == NULL){
             struct node* temp = root;
             root = root->right;
-            free(root);
+            free(temp);
         }
         else if(root->right == NULL){
             struct node* temp = root;
             root = root->left;
-            free(root);
+            free(temp);
         }
         //Case 3: Two children nodes
         else{
@@ -137,8 +140,7 @@ struct node* delete(struct node* root, int key){
     }
     return root;
 }
-
-
+//Traversals
 //INORDER LEFT->ROOT->RIGHT
 void inorder(struct node* root){
     if(root == NULL){
