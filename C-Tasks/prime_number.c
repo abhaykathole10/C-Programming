@@ -8,9 +8,12 @@ int main(){
                 int num,i;
                 printf("Enter number: ");
                 scanf("%d",&num);
+
                 if(i==1)
                     printf("Neither Prime nor Unprime");
+
                 i = 2;
+
                 while(i <= num-1)
                 {
                     if(num % i == 0)
