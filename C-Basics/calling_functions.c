@@ -4,7 +4,7 @@
 void argentina();
 void brazil();
 
-//main() function
+//main() function in C
 int main(){
     printf("I am home\n");
 
@@ -21,7 +21,7 @@ void argentina(){
 
     printf("I am in Argentina\n");
 
-    //Calling function 2
+    //Calling function 2 from inside function 1
     brazil();
 }
 
